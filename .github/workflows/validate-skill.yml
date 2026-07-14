@@ -89,7 +89,7 @@ jobs:
                   print(f'ERROR: {field} mismatch: SKILL.md={md_val!r} vs skill.json={json_val!r}')
                   sys.exit(1)
           print('SKILL.md ↔ skill.json consistency: OK')
-
+        "
       - name: Check file references
         run: |
           python3 -c "
