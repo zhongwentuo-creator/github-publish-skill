@@ -1,4 +1,5 @@
 ---
+name: github-publish
 description: Agent-native skill for publishing local projects to GitHub with auto proxy detection
 license: MIT
 compatibility: |
