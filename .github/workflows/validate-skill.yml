@@ -1,0 +1,111 @@
+name: Validate Skill
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - 'SKILL.md'
+      - 'skill.json'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate SKILL.md frontmatter
+        run: |
+          python3 -c "
+          import re, yaml, sys
+          with open('SKILL.md') as f:
+              content = f.read()
+          match = re.match(r'^---\n(.*?)\n---\n', content, re.DOTALL)
+          if not match:
+              print('ERROR: Missing YAML frontmatter in SKILL.md')
+              sys.exit(1)
+          try:
+              data = yaml.safe_load(match.group(1))
+          except yaml.YAMLError as e:
+              print(f'ERROR: Invalid YAML frontmatter: {e}')
+              sys.exit(1)
+          required = ['name', 'description']
+          for field in required:
+              if field not in data:
+                  print(f'ERROR: Missing required field in SKILL.md: {field}')
+                  sys.exit(1)
+          # Validate name format
+          name = data.get('name', '')
+          if not re.match(r'^[a-z0-9-]{1,64}$', name):
+              print(f'ERROR: Invalid name format: {name}')
+              sys.exit(1)
+          # Validate description length
+          desc = data.get('description', '')
+          if len(desc) > 1024:
+              print(f'ERROR: description exceeds 1024 characters ({len(desc)})')
+              sys.exit(1)
+          print('SKILL.md frontmatter: OK')
+          print(f'  name: {name}')
+          print(f'  description length: {len(desc)} chars')
+          "
+
+      - name: Validate skill.json
+        run: |
+          python3 -c "
+          import json, sys
+          with open('skill.json') as f:
+              content = f.read()
+          try:
+              data = json.loads(content)
+          except json.JSONDecodeError as e:
+              print(f'ERROR: Invalid JSON in skill.json: {e}')
+              sys.exit(1)
+          required = ['name', 'version', 'description', 'author', 'license']
+          for field in required:
+              if field not in data:
+                  print(f'ERROR: Missing required field in skill.json: {field}')
+                  sys.exit(1)
+          # Validate version format
+          version = data.get('version', '')
+          import re
+          if not re.match(r'^\d+\.\d+\.\d+', version):
+              print(f'ERROR: Invalid version format: {version}')
+              sys.exit(1)
+          print('skill.json: OK')
+          print(f'  name: {data.get(\"name\")}')
+          print(f'  version: {version}')
+          print(f'  author: {data.get(\"author\")}')
+          print(f'  license: {data.get(\"license\")}')
+          "
+
+      - name: Check file references
+        run: |
+          python3 -c "
+          import os, sys
+          refs = [
+              'SKILL.md',
+              'README.md',
+              'README.zh.md',
+              'LICENSE',
+              'CHANGELOG.md',
+              'CONTRIBUTING.md',
+              'skill.json',
+              'references/troubleshooting.md',
+              'references/proxy-guide.md',
+              'references/platform-paths.md',
+              'references/examples/example-01-simple.md',
+              'references/examples/example-02-with-proxy.md',
+              'references/examples/example-03-first-release.md',
+          ]
+          missing = []
+          for ref in refs:
+              if not os.path.exists(ref):
+                  missing.append(ref)
+          if missing:
+              print('WARNING: Missing referenced files:')
+              for m in missing:
+                  print(f'  - {m}')
+              # Don't fail the build for missing docs, but warn
+          else:
+              print('All referenced files present: OK')
+          "

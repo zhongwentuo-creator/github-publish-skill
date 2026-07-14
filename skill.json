@@ -1,0 +1,33 @@
+{
+  "name": "github-publish",
+  "version": "1.0.0",
+  "description": "Agent-native skill for publishing local projects to GitHub with auto proxy detection",
+  "author": "zhongwentuo-creator",
+  "license": "MIT",
+  "compatibility": [
+    "kimi-work",
+    "claude-code",
+    "openclaw",
+    "cursor",
+    "codex"
+  ],
+  "tags": [
+    "github",
+    "git",
+    "publish",
+    "automation",
+    "release",
+    "proxy",
+    "devops"
+  ],
+  "requires": {
+    "git": ">=2.20",
+    "curl": "*",
+    "python3": ">=3.8"
+  },
+  "platforms": {
+    "macos": "proxy auto-detect supported",
+    "linux": "manual proxy config required",
+    "windows": "not tested"
+  }
+}
