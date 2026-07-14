@@ -1,8 +1,5 @@
 ---
-name: github-publish
-description: |
-  Agent-native skill for publishing local projects to GitHub.
-  Auto-detects system proxy, scans sensitive files, handles commit/push/tag/verify.
+description: Agent-native skill for publishing local projects to GitHub with auto proxy detection
 license: MIT
 compatibility: |
   - Agent: Kimi Work, Claude Code, OpenClaw, Cursor, Codex
