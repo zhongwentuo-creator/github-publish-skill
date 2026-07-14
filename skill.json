@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Agent-native skill for publishing local projects to GitHub with auto proxy detection",
   "author": "zhongwentuo-creator",
+  "repository": "https://github.com/zhongwentuo-creator/github-publish-skill.git",
+  "homepage": "https://github.com/zhongwentuo-creator/github-publish-skill#readme",
   "license": "MIT",
   "compatibility": [
     "kimi-work",

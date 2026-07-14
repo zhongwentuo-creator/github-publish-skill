@@ -16,6 +16,15 @@
 
 ## Agent 执行流程
 
+> **前置条件**：已在 GitHub 创建空仓库并执行：
+> ```bash
+> git remote add origin https://github.com/<owner>/<repo>.git
+> ```
+> 若尚未创建仓库，可先执行：
+> ```bash
+> gh repo create <repo-name> --public --source=. --remote=origin --push
+> ```
+
 **Step 1: 检查项目准备**
 
 ```bash

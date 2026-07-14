@@ -45,5 +45,16 @@ Desktop.ini
 coverage/
 .nyc_output/
 
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
 # macOS proxy config (may contain sensitive info)
 proxy-config.local.sh

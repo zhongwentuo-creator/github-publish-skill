@@ -23,11 +23,15 @@ Say to your agent:
 Install this skill: https://github.com/zhongwentuo-creator/github-publish-skill
 ```
 
-**Option 2: CLI**
+**Option 2: Agent Command**
 
-```bash
-npx skills add zhongwentuo-creator/github-publish-skill
+For Kimi Work, Claude Code, OpenClaw, Cursor, etc., use your agent's native install command:
+
 ```
+Install this skill: https://github.com/zhongwentuo-creator/github-publish-skill
+```
+
+> **Note:** Different agents may have different install commands. See [references/platform-paths.md](references/platform-paths.md) for platform-specific details.
 
 **Option 3: Manual**
 

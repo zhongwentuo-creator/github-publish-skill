@@ -23,11 +23,15 @@
 安装这个 skill: https://github.com/zhongwentuo-creator/github-publish-skill
 ```
 
-**方式二：CLI**
+**方式二：Agent 命令**
 
-```bash
-npx skills add zhongwentuo-creator/github-publish-skill
+对 Kimi Work、Claude Code、OpenClaw、Cursor 等 Agent，使用其原生安装命令：
+
 ```
+安装这个 skill: https://github.com/zhongwentuo-creator/github-publish-skill
+```
+
+> **注意：** 不同 Agent 的安装命令可能不同，详见 [references/platform-paths.md](references/platform-paths.md)。
 
 **方式三：手动安装**
 

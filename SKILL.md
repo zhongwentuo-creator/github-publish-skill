@@ -58,7 +58,8 @@ Prepare → Commit → Diagnose → Push → Tag → Verify
 - 若 Git 超时但 API 可达 → 自动配置 Git 使用系统代理
 
 ### Stage 4: 推送代码
-- 推送到远程 main 分支：`git push origin main`
+- 检测当前分支：`BRANCH=$(git branch --show-current)`
+- 推送到远程当前分支：`git push origin "$BRANCH"`
 - 处理常见推送错误（认证失败、超时、non-fast-forward、权限不足）
 - 详细错误排查 → [故障排除手册](references/troubleshooting.md)
 
@@ -67,7 +68,9 @@ Prepare → Commit → Diagnose → Push → Tag → Verify
 - 推送标签到远程：`git push origin <version>`
 
 ### Stage 6: 验证
-- 验证远程提交：`curl https://api.github.com/repos/<owner>/<repo>/commits`
+- 验证远程提交：
+  - 从 origin URL 提取 owner/repo：`OWNER_REPO=$(git remote get-url origin | sed -E 's/.*github.com[\/:]([^\/]+)\/([^\/]+)(\.git)?$/\1\/\2/')`
+  - 调用 GitHub API：`curl https://api.github.com/repos/$OWNER_REPO/commits`
 - 验证关键文件存在：`README.md`, `LICENSE` 等
 - 生成验证报告（仓库 URL、最新提交、警告、下一步建议）
 
